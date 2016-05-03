@@ -1,14 +1,17 @@
 FROM jolokia/java-jolokia:8
 
-MAINTAINER fabric8@googlegroups.com
-
+# Install packages
+RUN apt-get update && apt-get install -y ruby 
+  
 ENV CLASSPATH /maven/*:/maven
 
 RUN mkdir /maven
+RUN mkdir /app
+RUN mkdir /app/bin
+RUN mkdir /app/etc
 
 EXPOSE 8778
 
-run mkdir /fabric8
-ADD run.sh /fabric8/
-CMD ["/fabric8/run.sh"]
+ADD run.sh /app/bin
+CMD ["/app/bin/run.sh"]
 
